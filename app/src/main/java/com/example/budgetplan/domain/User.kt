@@ -1,6 +1,7 @@
 package com.example.budgetplan.domain
 
 data class User(
+    val id: Int,
     val name: String,
     val money: Int,
     val monthProfit: Int,
