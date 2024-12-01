@@ -1,5 +1,7 @@
 package com.example.budgetplan.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface Repository {
 
     suspend fun addUser(user: User)
@@ -14,7 +16,7 @@ interface Repository {
 
     suspend fun getTask(id: Int): Task
 
-    suspend fun getTasks(): List<Task>
+    suspend fun getTasks(): Flow<List<Task>>
 
     suspend fun deleteTask(task: Task)
 }

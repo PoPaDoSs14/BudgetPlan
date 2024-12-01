@@ -4,6 +4,8 @@ import android.app.Application
 import com.example.budgetplan.domain.Repository
 import com.example.budgetplan.domain.Task
 import com.example.budgetplan.domain.User
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class RepositoryImpl(private val application: Application): Repository {
 
@@ -11,7 +13,7 @@ class RepositoryImpl(private val application: Application): Repository {
     val taskDao = AppDatabase.getInstance(application).taskDao()
     val userDao = AppDatabase.getInstance(application).userDao()
     val userMapper = UserMapper()
-    val taskMapper = UserMapper()
+    val taskMapper = TaskMapper()
 
     override suspend fun addUser(user: User) {
         userDao.addUser(userMapper.mapEntityToDbModel(user))
@@ -26,18 +28,18 @@ class RepositoryImpl(private val application: Application): Repository {
     }
 
     override suspend fun addTask(task: Task) {
-        TODO("Not yet implemented")
+        taskDao.addTask(taskMapper.mapEntityToDbModel(task))
     }
 
     override suspend fun getTask(id: Int): Task {
-        TODO("Not yet implemented")
+        return taskMapper.mapDbModelToEntity(taskDao.getTask(id))
     }
 
-    override suspend fun getTasks(): List<Task> {
-        TODO("Not yet implemented")
+    override suspend fun getTasks(): Flow<List<Task>> = taskDao.getTasks().map {
+        taskMapper.mapListDbModelToListEntity(it)
     }
 
     override suspend fun deleteTask(task: Task) {
-        TODO("Not yet implemented")
+        taskDao.deleteTask(task.id)
     }
 }
