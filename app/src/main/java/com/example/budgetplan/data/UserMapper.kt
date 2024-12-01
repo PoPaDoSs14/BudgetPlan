@@ -1,10 +1,8 @@
 package com.example.budgetplan.data
 
 import com.example.budgetplan.domain.Task
-import com.example.budgetplan.domain.TaskType
-import com.example.budgetplan.domain.User
 
-class UserMapper {
+class TaskMapper {
 
     fun mapEntityToDbModel(task: Task): TaskDbModel{
         return TaskDbModel(

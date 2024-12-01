@@ -2,7 +2,7 @@ package com.example.budgetplan.data
 
 import com.example.budgetplan.domain.User
 
-class TaskMapper {
+class UserMapper {
 
     fun mapEntityToDbModel(user: User): UserDbModel{
         return UserDbModel(

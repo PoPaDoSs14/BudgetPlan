@@ -4,7 +4,7 @@ interface Repository {
 
     suspend fun addUser(user: User)
 
-    suspend fun getUser(id: Int)
+    suspend fun getUser(id: Int): User
 
     suspend fun deleteUser(user: User)
 
@@ -12,7 +12,7 @@ interface Repository {
 
     suspend fun addTask(task: Task)
 
-    suspend fun getTask(id: Int)
+    suspend fun getTask(id: Int): Task
 
     suspend fun getTasks(): List<Task>
 
