@@ -12,5 +12,5 @@ data class UserDbModel(
     val money: Int,
     val monthProfit: Int,
     val monthLosses: Int,
-    val lastTask: Task
+    val lastTask: String
 )

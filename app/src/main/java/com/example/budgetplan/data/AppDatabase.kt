@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [TaskDbModel::class, UserDbModel::class], version = 1, exportSchema = false)
+@TypeConverters(TaskTypeConverter::class)
 abstract class AppDatabase(): RoomDatabase() {
 
     abstract fun userDao(): UserDao

@@ -4,6 +4,8 @@ import com.example.budgetplan.domain.User
 
 class UserMapper {
 
+    val taskConverter = TaskConverter()
+
     fun mapEntityToDbModel(user: User): UserDbModel{
         return UserDbModel(
             id = user.id,
@@ -11,7 +13,7 @@ class UserMapper {
             money = user.money,
             monthProfit = user.monthProfit,
             monthLosses = user.monthLosses,
-            lastTask = user.lastTask
+            lastTask = taskConverter.fromTask(user.lastTask)!!
         )
     }
 
@@ -22,7 +24,7 @@ class UserMapper {
             money = userDbModel.money,
             monthProfit = userDbModel.monthProfit,
             monthLosses = userDbModel.monthLosses,
-            lastTask = userDbModel.lastTask
+            lastTask = taskConverter.toTask(userDbModel.lastTask)!!
         )
     }
 

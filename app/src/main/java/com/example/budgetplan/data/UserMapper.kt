@@ -4,12 +4,14 @@ import com.example.budgetplan.domain.Task
 
 class TaskMapper {
 
+    val taskTypeConverter = TaskTypeConverter()
+
     fun mapEntityToDbModel(task: Task): TaskDbModel{
         return TaskDbModel(
             id = task.id,
             isProfit = task.isProfit,
             value = task.value,
-            type = task.type
+            type = taskTypeConverter.fromTaskType(task.type)!!
         )
     }
 
@@ -18,7 +20,7 @@ class TaskMapper {
             id = taskDbModel.id,
             isProfit = taskDbModel.isProfit,
             value = taskDbModel.value,
-            type = taskDbModel.type
+            type = taskTypeConverter.toTaskType(taskDbModel.type)!!
         )
     }
 

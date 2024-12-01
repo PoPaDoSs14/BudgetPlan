@@ -10,7 +10,7 @@ data class TaskDbModel(
     val id: Int,
     val isProfit: Boolean,
     val value: Int,
-    val type: TaskType,
+    val type: String,
 )
 
 
