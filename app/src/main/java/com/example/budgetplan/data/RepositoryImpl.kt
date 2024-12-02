@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.map
 class RepositoryImpl(private val application: Application): Repository {
 
 
-    val taskDao = AppDatabase.getInstance(application).taskDao()
-    val userDao = AppDatabase.getInstance(application).userDao()
-    val userMapper = UserMapper()
-    val taskMapper = TaskMapper()
+    private val taskDao = AppDatabase.getInstance(application).taskDao()
+    private val userDao = AppDatabase.getInstance(application).userDao()
+    private val userMapper = UserMapper()
+    private val taskMapper = TaskMapper()
 
     override suspend fun addUser(user: User) {
         userDao.addUser(userMapper.mapEntityToDbModel(user))
