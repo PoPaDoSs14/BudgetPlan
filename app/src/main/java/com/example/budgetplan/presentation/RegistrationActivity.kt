@@ -1,6 +1,9 @@
 package com.example.budgetplan.presentation
 
+import android.graphics.Color
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityMainBinding
@@ -20,8 +23,13 @@ class RegistrationActivity : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             val name = binding.username.text.toString()
-            val user = User(0, name, 0, 0, 0, null)
-            viewModel.addUser(user)
+            if (name != ""){
+                val user = User(0, name, 0, 0, 0, null)
+                viewModel.addUser(user)
+            } else {
+                Toast.makeText(baseContext, "введите имя", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }
