@@ -9,9 +9,11 @@ android {
     namespace = "com.example.budgetplan"
     compileSdk = 35
 
+
     room {
         schemaDirectory("$projectDir/schemas")
     }
+
 
     defaultConfig {
         applicationId = "com.example.budgetplan"
@@ -43,16 +45,20 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
 
     val room_version = "2.6.1"
 
+
+
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:2.5.0")
 
     implementation ("com.google.code.gson:gson:2.11.0")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
