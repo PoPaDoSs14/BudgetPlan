@@ -13,10 +13,18 @@
         android:layout_height="wrap_content"
         android:text="Осталось денег: 1000₽"
         android:textSize="24sp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        tools:ignore="MissingConstraints" />
 
 
-    
+    <com.example.budgetplan.presentation.PieChartView
+        android:id="@+id/pie_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.budgetplan.presentation.PieChartView>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/operations_list"
