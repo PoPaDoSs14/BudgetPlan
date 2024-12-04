@@ -58,7 +58,7 @@ dependencies {
     ksp("androidx.room:room-compiler:2.5.0")
 
     implementation ("com.google.code.gson:gson:2.11.0")
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
