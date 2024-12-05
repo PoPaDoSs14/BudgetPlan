@@ -4,17 +4,23 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budgetplan.data.RepositoryImpl
+import com.example.budgetplan.domain.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class StatisticsViewModel(application: Application): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
+    lateinit var user: User
+
+    init {
+        getUser()
+    }
 
     fun getIncome(): Float{
         var income = 0f
         viewModelScope.launch(Dispatchers.IO) {
-            income = repo.getUser(0).monthProfit.toFloat()
+            income = user.monthProfit.toFloat()
         }
         return income
     }
@@ -22,8 +28,15 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     fun getExpenses(): Float{
         var expenses = 0f
         viewModelScope.launch(Dispatchers.IO) {
-            expenses = repo.getUser(0).monthLosses.toFloat()
+            expenses = user.monthLosses.toFloat()
         }
         return expenses
+    }
+
+
+    fun getUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            user = repo.getUser(0)
+        }
     }
 }

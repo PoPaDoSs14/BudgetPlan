@@ -1,5 +1,6 @@
 package com.example.budgetplan.data
 
+import com.example.budgetplan.domain.Task
 import com.example.budgetplan.domain.User
 
 class UserMapper {
@@ -13,7 +14,7 @@ class UserMapper {
             money = user.money,
             monthProfit = user.monthProfit,
             monthLosses = user.monthLosses,
-            lastTask = taskConverter.fromTask(user.lastTask)!!
+            lastTask = taskConverter.fromTask(user.lastTask)?: ""
         )
     }
 
@@ -24,7 +25,7 @@ class UserMapper {
             money = userDbModel.money,
             monthProfit = userDbModel.monthProfit,
             monthLosses = userDbModel.monthLosses,
-            lastTask = taskConverter.toTask(userDbModel.lastTask)!!
+            lastTask = taskConverter.toTask(userDbModel.lastTask)
         )
     }
 

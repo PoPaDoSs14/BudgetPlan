@@ -16,6 +16,7 @@ class TaskConverter {
 
     @TypeConverter
     fun toTask(taskString: String?): Task? {
+        if (taskString.isNullOrEmpty()) return null
         val type = object : TypeToken<Task>() {}.type
         return gson.fromJson(taskString, type)
     }
