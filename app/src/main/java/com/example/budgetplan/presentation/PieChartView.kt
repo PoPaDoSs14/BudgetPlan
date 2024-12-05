@@ -14,8 +14,8 @@ class PieChartView(context: Context, attrs: AttributeSet) : View(context, attrs)
     private val rect = RectF()
 
 
-    private val expenses = 70f
-    private val income = 30f
+    var expenses = 70f
+    var income = 30f
 
     init {
         paint.isAntiAlias = true

@@ -12,10 +12,16 @@ import com.example.budgetplan.databinding.ActivityStatisticsBinding
 class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStatisticsBinding
+    private lateinit var viewModel: StatisticsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStatisticsBinding.inflate(layoutInflater)
+        viewModel = StatisticsViewModel(application)
         setContentView(binding.root)
+
+
+        binding.pieChart.income = viewModel.getIncome()
+        binding.pieChart.expenses = viewModel.getExpenses()
     }
 }
