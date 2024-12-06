@@ -18,6 +18,7 @@ class StatisticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStatisticsBinding.inflate(layoutInflater)
         viewModel = StatisticsViewModel(application)
+        viewModel.getUser()
         setContentView(binding.root)
 
 

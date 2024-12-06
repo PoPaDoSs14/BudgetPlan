@@ -1,6 +1,7 @@
 package com.example.budgetplan.presentation
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,10 +16,6 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
-
-    init {
-        getUser()
-    }
 
     fun getIncome(): LiveData<Float> {
         val income = MutableLiveData<Float>()
@@ -38,7 +35,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun getUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            val fetchedUser = repo.getUser(0)
+            val fetchedUser = repo.getUser(1)
             _user.postValue(fetchedUser)
         }
     }

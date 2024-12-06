@@ -1,36 +1,31 @@
 package com.example.budgetplan.data
 
 import com.example.budgetplan.domain.Task
-import com.example.budgetplan.domain.User
 
-class UserMapper {
+class TaskMapper {
 
-    val taskConverter = TaskConverter()
+    val taskTypeConverter = TaskTypeConverter()
 
-    fun mapEntityToDbModel(user: User): UserDbModel{
-        return UserDbModel(
-            id = user.id,
-            name = user.name,
-            money = user.money,
-            monthProfit = user.monthProfit,
-            monthLosses = user.monthLosses,
-            lastTask = taskConverter.fromTask(user.lastTask)?: ""
+    fun mapEntityToDbModel(task: Task): TaskDbModel{
+        return TaskDbModel(
+            id = task.id,
+            isProfit = task.isProfit,
+            value = task.value,
+            type = taskTypeConverter.fromTaskType(task.type)!!
         )
     }
 
-    fun mapDbModelToEntity(userDbModel: UserDbModel): User {
-        return User(
-            id = userDbModel.id,
-            name = userDbModel.name,
-            money = userDbModel.money,
-            monthProfit = userDbModel.monthProfit,
-            monthLosses = userDbModel.monthLosses,
-            lastTask = taskConverter.toTask(userDbModel.lastTask) ?: null
+    fun mapDbModelToEntity(taskDbModel: TaskDbModel): Task {
+        return Task(
+            id = taskDbModel.id,
+            isProfit = taskDbModel.isProfit,
+            value = taskDbModel.value,
+            type = taskTypeConverter.toTaskType(taskDbModel.type)!!
         )
     }
 
 
-    fun mapListDbModelToListEntity(list: List<UserDbModel>): List<User> = list.map {
+    fun mapListDbModelToListEntity(list: List<TaskDbModel>): List<Task> = list.map {
         mapDbModelToEntity(it)
     }
 }
