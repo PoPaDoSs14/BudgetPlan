@@ -2,6 +2,8 @@ package com.example.budgetplan.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.budgetplan.data.RepositoryImpl
 import com.example.budgetplan.domain.User
@@ -11,32 +13,33 @@ import kotlinx.coroutines.launch
 class StatisticsViewModel(application: Application): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
-    lateinit var user: User
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> get() = _user
 
     init {
         getUser()
     }
 
-    fun getIncome(): Float{
-        var income = 0f
-        viewModelScope.launch(Dispatchers.IO) {
-            income = user.monthProfit.toFloat()
+    fun getIncome(): LiveData<Float> {
+        val income = MutableLiveData<Float>()
+        _user.observeForever { user ->
+            income.value = user?.monthProfit?.toFloat() ?: 0f
         }
         return income
     }
 
-    fun getExpenses(): Float{
-        var expenses = 0f
-        viewModelScope.launch(Dispatchers.IO) {
-            expenses = user.monthLosses.toFloat()
+    fun getExpenses(): LiveData<Float> {
+        val expenses = MutableLiveData<Float>()
+        _user.observeForever { user ->
+            expenses.value = user?.monthLosses?.toFloat() ?: 0f
         }
         return expenses
     }
 
-
     fun getUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            user = repo.getUser(0)
+            val fetchedUser = repo.getUser(0)
+            _user.postValue(fetchedUser)
         }
     }
 }

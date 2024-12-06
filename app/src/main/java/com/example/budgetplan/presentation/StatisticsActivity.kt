@@ -21,7 +21,7 @@ class StatisticsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.pieChart.income = viewModel.getIncome()
-        binding.pieChart.expenses = viewModel.getExpenses()
+        binding.pieChart.income = viewModel.getIncome().value?: 0f
+        binding.pieChart.expenses = viewModel.getExpenses().value?: 0f
     }
 }
