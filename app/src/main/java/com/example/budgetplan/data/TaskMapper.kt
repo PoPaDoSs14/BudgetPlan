@@ -25,7 +25,7 @@ class UserMapper {
             money = userDbModel.money,
             monthProfit = userDbModel.monthProfit,
             monthLosses = userDbModel.monthLosses,
-            lastTask = taskConverter.toTask(userDbModel.lastTask)
+            lastTask = taskConverter.toTask(userDbModel.lastTask) ?: null
         )
     }
 
