@@ -47,6 +47,13 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
+    fun addRemaingMoney(money: String) {
+        val oldMoneyLenght = remaingMoney.value?.length ?: 0
+        val oldMoney = remaingMoney.value?.substring(16, oldMoneyLenght-1)?.trim()?.toInt()
+        val newMoney = oldMoney?.plus(money.toInt())
+        _remaingMoney.postValue("Осталось денег: $newMoney ₽")
+    }
+
     private fun observeUser() {
         user.observeForever { user ->
             val money = user?.money?.toString() ?: "0"

@@ -52,6 +52,7 @@ class StatisticsActivity : AppCompatActivity() {
             if (enteredValue.isNotEmpty()) {
                 val moneyValue = enteredValue.toFloatOrNull()
                 if (moneyValue != null) {
+                    viewModel.addRemaingMoney(moneyValue.toInt().toString())
                     Toast.makeText(this, "Вы ввели: $moneyValue", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Пожалуйста, введите корректное число", Toast.LENGTH_SHORT).show()
