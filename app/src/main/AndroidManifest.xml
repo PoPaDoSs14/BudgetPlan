@@ -13,6 +13,9 @@
         android:theme="@style/Theme.BudgetPlan"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.AddTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.StatisticsActivity"
             android:exported="false" />
         <activity
