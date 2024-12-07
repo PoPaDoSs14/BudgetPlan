@@ -15,7 +15,14 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
+    private val _remaingMoney = MutableLiveData<String>()
     val user: LiveData<User> get() = _user
+    val remaingMoney: LiveData<String> get() = _remaingMoney
+
+    init {
+        getUser()
+        observeUser()
+    }
 
     fun getIncome(): LiveData<Float> {
         val income = MutableLiveData<Float>()
@@ -37,6 +44,13 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             val fetchedUser = repo.getUser(1)
             _user.postValue(fetchedUser)
+        }
+    }
+
+    private fun observeUser() {
+        user.observeForever { user ->
+            val money = user?.money?.toString() ?: "0"
+            _remaingMoney.postValue("Осталось денег: $money ₽")
         }
     }
 }

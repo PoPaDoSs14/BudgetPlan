@@ -8,6 +8,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityStatisticsBinding
 
@@ -27,6 +29,11 @@ class StatisticsActivity : AppCompatActivity() {
 
         binding.pieChart.income = viewModel.getIncome().value?: 0f
         binding.pieChart.expenses = viewModel.getExpenses().value?: 0f
+        binding.remainingMoney.text = "Загрузка..."
+
+        viewModel.remaingMoney.observe(this) { moneyText ->
+            binding.remainingMoney.text = moneyText
+        }
 
         binding.remainingMoney.setOnClickListener {
             showInputDialog()
