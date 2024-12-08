@@ -1,5 +1,6 @@
 package com.example.budgetplan.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
@@ -37,6 +38,11 @@ class StatisticsActivity : AppCompatActivity() {
 
         binding.remainingMoney.setOnClickListener {
             showInputDialog()
+        }
+
+        binding.addTaskButton.setOnClickListener {
+            val intent = Intent(this, AddTaskActivity::class.java)
+            startActivity(intent)
         }
     }
 

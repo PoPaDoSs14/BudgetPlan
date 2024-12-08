@@ -18,7 +18,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="16dp"></TextView>
+        tools:layout_editor_absoluteY="16dp"
+        tools:ignore="MissingConstraints"></TextView>
 
     <EditText
         android:id="@+id/valueEditText"
@@ -29,9 +30,11 @@
         android:inputType="number"
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/typeSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView"
         app:layout_constraintVertical_bias="0.958"
-        tools:layout_editor_absoluteX="129dp" />
+        tools:ignore="MissingConstraints" />
 
     <Spinner
         android:id="@+id/typeSpinner"
@@ -48,9 +51,13 @@
         android:id="@+id/addButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="264dp"
         android:text="Добавить"
         android:textColor="@android:color/white"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="438dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
