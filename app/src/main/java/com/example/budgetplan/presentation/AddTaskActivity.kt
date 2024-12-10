@@ -18,6 +18,8 @@ class AddTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // выходной
+
+
+
     }
 }
