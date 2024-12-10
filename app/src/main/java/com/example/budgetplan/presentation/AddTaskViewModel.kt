@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.budgetplan.data.RepositoryImpl
 import com.example.budgetplan.domain.Task
+import com.example.budgetplan.domain.TaskType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,5 +25,14 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             return true
         }
         else return false
+    }
+
+    fun getTaskType(type: String): TaskType {
+        return when (type.toUpperCase()) {
+            "FOOD" -> TaskType.FOOD
+            "TAXES" -> TaskType.TAXES
+            "MEDICINES" -> TaskType.MEDICINES
+            else -> throw IllegalArgumentException("Unknown task type: $type")
+        }
     }
 }

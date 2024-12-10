@@ -22,7 +22,11 @@ class AddTaskActivity : AppCompatActivity() {
 
 
         binding.addButton.setOnClickListener {
+            val value = binding.valueEditText.text.toString().toInt()
+            val type = binding.typeSpinner.prompt.toString()
+            val task = Task(0, viewModel.isProfit(value), value, viewModel.getTaskType(type))
 
+            viewModel.addTask(task)
         }
     }
 }
