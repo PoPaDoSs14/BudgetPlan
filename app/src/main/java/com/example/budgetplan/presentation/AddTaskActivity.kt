@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityAddTaskBinding
 import com.example.budgetplan.databinding.ActivityStatisticsBinding
+import com.example.budgetplan.domain.Task
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -20,6 +21,8 @@ class AddTaskActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        binding.addButton.setOnClickListener {
 
+        }
     }
 }

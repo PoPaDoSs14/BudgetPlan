@@ -18,4 +18,11 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             repo.addTask(task)
         }
     }
+
+    fun isProfit(number: Int): Boolean{
+        if (number >= 0 ){
+            return true
+        }
+        else return false
+    }
 }
