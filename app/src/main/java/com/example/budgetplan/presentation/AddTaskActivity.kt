@@ -1,5 +1,6 @@
 package com.example.budgetplan.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class AddTaskActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
+        viewModel = AddTaskViewModel(application)
         setContentView(binding.root)
 
         val taskTypes = TaskType.getValues()
@@ -29,10 +31,13 @@ class AddTaskActivity : AppCompatActivity() {
 
         binding.addButton.setOnClickListener {
             val value = binding.valueEditText.text.toString().toInt()
-            val type = binding.typeSpinner.prompt.toString()
+            val type = binding.typeSpinner.selectedItem.toString()
             val task = Task(0, viewModel.isProfit(value), value, viewModel.getTaskType(type))
 
             viewModel.addTask(task)
+
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
         }
     }
 }
