@@ -9,6 +9,7 @@ import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityAddTaskBinding
 import com.example.budgetplan.databinding.ActivityStatisticsBinding
 import com.example.budgetplan.domain.Task
+import com.example.budgetplan.domain.TaskType
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -19,6 +20,11 @@ class AddTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val taskTypes = TaskType.getValues()
+
+        val adapter = TaskTypeAdapter(this, taskTypes)
+        binding.typeSpinner.adapter = adapter
 
 
         binding.addButton.setOnClickListener {
