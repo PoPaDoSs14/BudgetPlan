@@ -47,9 +47,33 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val userId = repo.getUser(1).id
+            val updateUser = User(
+                userId,
+                name = user.name,
+                money = user.money,
+                monthProfit = user.monthProfit,
+                monthLosses = user.monthLosses,
+                lastTask = user.lastTask
+            )
+            repo.updateUser(updateUser)
+        }
+    }
+
+    fun updateMoney(money: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val user = repo.getUser(1)
+            val updateUser =
+                User(user.id, user.name, money, user.monthProfit, user.monthLosses, user.lastTask)
+            updateUser(updateUser)
+        }
+    }
+
     fun addRemaingMoney(money: String) {
         val oldMoneyLenght = remaingMoney.value?.length ?: 0
-        val oldMoney = remaingMoney.value?.substring(16, oldMoneyLenght-1)?.trim()?.toInt()
+        val oldMoney = remaingMoney.value?.substring(16, oldMoneyLenght - 1)?.trim()?.toInt()
         val newMoney = oldMoney?.plus(money.toInt())
         _remaingMoney.postValue("Осталось денег: $newMoney ₽")
     }

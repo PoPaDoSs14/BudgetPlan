@@ -10,6 +10,8 @@ interface Repository {
 
     suspend fun deleteUser(user: User)
 
+    suspend fun updateUser(user: User)
+
 
 
     suspend fun addTask(task: Task)

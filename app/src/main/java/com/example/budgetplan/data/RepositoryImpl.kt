@@ -27,6 +27,10 @@ class RepositoryImpl(private val application: Application): Repository {
         userDao.deleteUser(user.id)
     }
 
+    override suspend fun updateUser(user: User) {
+        userDao.update(userMapper.mapEntityToDbModel(user))
+    }
+
     override suspend fun addTask(task: Task) {
         taskDao.addTask(taskMapper.mapEntityToDbModel(task))
     }
