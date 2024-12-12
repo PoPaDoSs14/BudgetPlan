@@ -7,8 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.budgetplan.data.RepositoryImpl
+import com.example.budgetplan.domain.Task
 import com.example.budgetplan.domain.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class StatisticsViewModel(application: Application): AndroidViewModel(application) {
@@ -16,10 +18,13 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
     private val _remaingMoney = MutableLiveData<String>()
+    private val _tasks = MutableLiveData<List<Task>>()
     val user: LiveData<User> get() = _user
     val remaingMoney: LiveData<String> get() = _remaingMoney
+    val tasks: LiveData<List<Task>> get() = _tasks
 
     init {
+        getTasks()
         getUser()
         observeUser()
     }
@@ -44,6 +49,12 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             val fetchedUser = repo.getUser(1)
             _user.postValue(fetchedUser)
+        }
+    }
+
+    fun getTasks() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.getTasks().map { _tasks.postValue(it) }
         }
     }
 
