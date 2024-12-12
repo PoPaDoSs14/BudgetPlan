@@ -54,7 +54,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun getTasks() {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.getTasks().map { _tasks.postValue(it) }
+            repo.getTasks().map { _tasks.postValue(it) } // TODO здесь ошибка
         }
     }
 
