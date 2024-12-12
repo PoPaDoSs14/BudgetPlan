@@ -2,6 +2,7 @@ package com.example.budgetplan.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityStatisticsBinding
 
@@ -19,6 +21,7 @@ class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStatisticsBinding
     private lateinit var viewModel: StatisticsViewModel
+    private lateinit var adapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,13 @@ class StatisticsActivity : AppCompatActivity() {
         binding.pieChart.income = viewModel.getIncome().value?: 0f
         binding.pieChart.expenses = viewModel.getExpenses().value?: 0f
         binding.remainingMoney.text = "Загрузка..."
+
+        adapter = TaskAdapter()
+        binding.operationsList.adapter = adapter
+        binding.operationsList.layoutManager = LinearLayoutManager(this)
+
+        adapter.submitList(viewModel.tasks.value)
+        Log.d("test", viewModel.tasks.value.toString())
 
         viewModel.remaingMoney.observe(this) { moneyText ->
             binding.remainingMoney.text = moneyText
