@@ -77,7 +77,6 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             val user = repo.getUser(1)
 
-
             val remainingMoneyString = remaingMoney.value ?: "0"
 
             val remainingMoneyValue = extractMoneyFromString(remainingMoneyString)
