@@ -76,8 +76,9 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     fun updateMoney(money: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val user = repo.getUser(1)
+            val newMoney = money + (remaingMoney.value?.toInt() ?: 0)
             val updateUser =
-                User(user.id, user.name, money, user.monthProfit, user.monthLosses, user.lastTask)
+                User(user.id, user.name, newMoney, user.monthProfit, user.monthLosses, user.lastTask)
             updateUser(updateUser)
         }
     }
@@ -87,6 +88,10 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         val oldMoney = remaingMoney.value?.substring(16, oldMoneyLenght - 1)?.trim()?.toInt()
         val newMoney = oldMoney?.plus(money.toInt())
         _remaingMoney.postValue("Осталось денег: $newMoney ₽")
+    }
+
+    private fun extractMoneyFromString(moneyString: String): Int {
+        return moneyString.replace(Regex("[^0-9]"), "").toIntOrNull() ?: 0
     }
 
     private fun observeUser() {
