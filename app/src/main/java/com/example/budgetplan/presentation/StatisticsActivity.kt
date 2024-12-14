@@ -31,8 +31,14 @@ class StatisticsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.pieChart.income = viewModel.getIncome().value?: 0f
-        binding.pieChart.expenses = viewModel.getExpenses().value?: 0f
+        viewModel.income.observe(this){
+            binding.pieChart.income = it
+        }
+
+        viewModel.expenses.observe(this){
+            binding.pieChart.expenses = it
+        }
+
         binding.remainingMoney.text = "Загрузка..."
 
         adapter = TaskAdapter()

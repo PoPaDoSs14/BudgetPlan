@@ -19,7 +19,11 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
     private val _remaingMoney = MutableLiveData<String>()
+    private val _income = MutableLiveData<Float>()
+    private val _expenses = MutableLiveData<Float>()
     private val _tasks = MutableLiveData<List<Task>>()
+    val income: LiveData<Float> get() = _income
+    val expenses: LiveData<Float> get() = _expenses
     val user: LiveData<User> get() = _user
     val remaingMoney: LiveData<String> get() = _remaingMoney
     val tasks: LiveData<List<Task>> get() = _tasks
@@ -28,22 +32,20 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
         getTasks()
         getUser()
         observeUser()
+        getIncome()
+        getExpenses()
     }
 
-    fun getIncome(): LiveData<Float> {
-        val income = MutableLiveData<Float>()
+    fun getIncome() {
         _user.observeForever { user ->
-            income.value = user?.monthProfit?.toFloat() ?: 0f
+            _income.postValue(user?.monthProfit?.toFloat() ?: 0f)
         }
-        return income
     }
 
-    fun getExpenses(): LiveData<Float> {
-        val expenses = MutableLiveData<Float>()
+    fun getExpenses() {
         _user.observeForever { user ->
-            expenses.value = user?.monthLosses?.toFloat() ?: 0f
+            _expenses.postValue(user?.monthLosses?.toFloat() ?: 0f)
         }
-        return expenses
     }
 
     fun getUser() {
