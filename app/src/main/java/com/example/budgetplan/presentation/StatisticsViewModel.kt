@@ -10,6 +10,7 @@ import com.example.budgetplan.data.RepositoryImpl
 import com.example.budgetplan.domain.Task
 import com.example.budgetplan.domain.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -53,8 +54,12 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     }
 
     fun getTasks() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.getTasks().map { _tasks.postValue(it) } // TODO здесь ошибка
+        viewModelScope.launch {
+            repo.getTasks()
+                .flowOn(Dispatchers.IO)
+                .collect { taskList ->
+                    _tasks.postValue(taskList)
+                }
         }
     }
 
