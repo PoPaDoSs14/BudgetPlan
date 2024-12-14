@@ -40,7 +40,6 @@ class StatisticsActivity : AppCompatActivity() {
         binding.operationsList.layoutManager = LinearLayoutManager(this)
 
         adapter.submitList(viewModel.tasks.value)
-        Log.d("test", viewModel.tasks.value.toString())
 
         viewModel.remaingMoney.observe(this) { moneyText ->
             binding.remainingMoney.text = moneyText
