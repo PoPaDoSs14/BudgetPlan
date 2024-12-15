@@ -20,6 +20,7 @@ class RegistrationActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = RegistrationViewModel(application)
+        viewModel.firstLogin(this)
 
 
         binding.registerButton.setOnClickListener {
