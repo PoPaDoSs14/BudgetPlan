@@ -6,7 +6,7 @@ interface Repository {
 
     suspend fun addUser(user: User)
 
-    suspend fun getUser(id: Int): User
+    suspend fun getUser(id: Int): User?
 
     suspend fun deleteUser(user: User)
 

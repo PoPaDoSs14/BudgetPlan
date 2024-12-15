@@ -17,19 +17,23 @@ class UserMapper {
         )
     }
 
-    fun mapDbModelToEntity(userDbModel: UserDbModel): User {
-        return User(
-            id = userDbModel.id,
-            name = userDbModel.name,
-            money = userDbModel.money,
-            monthProfit = userDbModel.monthProfit,
-            monthLosses = userDbModel.monthLosses,
-            lastTask = taskConverter.toTask(userDbModel.lastTask) ?: null
-        )
+    fun mapDbModelToEntity(userDbModel: UserDbModel?): User? {
+        if (userDbModel != null){
+            return User(
+                id = userDbModel.id,
+                name = userDbModel.name,
+                money = userDbModel.money,
+                monthProfit = userDbModel.monthProfit,
+                monthLosses = userDbModel.monthLosses,
+                lastTask = taskConverter.toTask(userDbModel.lastTask) ?: null
+            )
+        } else {
+            return null
+        }
     }
 
 
     fun mapListDbModelToListEntity(list: List<UserDbModel>): List<User> = list.map {
-        mapDbModelToEntity(it)
+        mapDbModelToEntity(it)!!
     }
 }

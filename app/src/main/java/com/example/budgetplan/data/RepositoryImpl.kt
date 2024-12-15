@@ -19,8 +19,8 @@ class RepositoryImpl(private val application: Application): Repository {
         userDao.addUser(userMapper.mapEntityToDbModel(user))
     }
 
-    override suspend fun getUser(id: Int): User {
-        return userMapper.mapDbModelToEntity(userDao.getUser(id))
+    override suspend fun getUser(id: Int): User? {
+        return userMapper.mapDbModelToEntity(userDao.getUser(id))?: null
     }
 
     override suspend fun deleteUser(user: User) {
