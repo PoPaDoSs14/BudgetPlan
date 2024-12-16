@@ -19,6 +19,9 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
     fun addTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
             repo.addTask(task)
+            val user = repo.getUser(1)
+            user!!.lastTask = task
+            repo.updateUser(user!!)
         }
     }
 

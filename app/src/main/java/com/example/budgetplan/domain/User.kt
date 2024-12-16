@@ -6,6 +6,6 @@ data class User(
     val money: Int,
     val monthProfit: Int,
     val monthLosses: Int,
-    val lastTask: Task?
+    var lastTask: Task?
 )
 
