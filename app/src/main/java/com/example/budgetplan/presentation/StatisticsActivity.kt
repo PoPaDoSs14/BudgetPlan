@@ -2,6 +2,7 @@ package com.example.budgetplan.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
@@ -67,13 +68,16 @@ class StatisticsActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Введите сумму денег")
 
-        val input = EditText(this)
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_SIGNED
+            hint = "Введите сумму (можно отрицательное значение)"
+        }
         builder.setView(input)
 
         builder.setPositiveButton("OK") { dialog, which ->
             val enteredValue = input.text.toString()
             if (enteredValue.isNotEmpty()) {
-                val moneyValue = enteredValue.toFloatOrNull()
+                val moneyValue = enteredValue.toDoubleOrNull()
                 if (moneyValue != null) {
                     viewModel.addRemaingMoney(moneyValue.toInt().toString())
                     viewModel.updateMoney(moneyValue.toInt())
@@ -81,6 +85,8 @@ class StatisticsActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Пожалуйста, введите корректное число", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Toast.makeText(this, "Поле не должно быть пустым", Toast.LENGTH_SHORT).show()
             }
         }
         builder.setNegativeButton("Отмена") { dialog, which -> dialog.cancel() }
