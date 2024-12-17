@@ -23,12 +23,16 @@ class RegistrationViewModel(application: Application): AndroidViewModel(applicat
 
     fun firstLogin(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            if (repo.getUser(1) != null) {
+            if (repo.getUser(USER_ID) != null) {
                 val intent = Intent(context, StatisticsActivity::class.java)
                 withContext(Dispatchers.Main) {
                     context.startActivity(intent)
                 }
             }
         }
+    }
+
+    companion object{
+        const val USER_ID = 1
     }
 }

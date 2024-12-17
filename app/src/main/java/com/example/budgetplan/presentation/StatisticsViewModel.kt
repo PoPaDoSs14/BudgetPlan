@@ -50,7 +50,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun getUser() {
         viewModelScope.launch(Dispatchers.IO) {
-            val fetchedUser = repo.getUser(1)
+            val fetchedUser = repo.getUser(USER_ID)
             _user.postValue(fetchedUser)
         }
     }
@@ -67,7 +67,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun updateUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
-            val userId = repo.getUser(1)!!.id
+            val userId = repo.getUser(USER_ID)!!.id
             val updateUser = User(
                 userId,
                 name = user.name,
@@ -82,7 +82,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun updateMoney(money: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val user = repo.getUser(1)
+            val user = repo.getUser(USER_ID)
 
             val remainingMoneyString = remaingMoney.value ?: "0"
 
@@ -110,5 +110,9 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
             val money = user?.money?.toString() ?: "0"
             _remaingMoney.postValue("Осталось денег: $money ₽")
         }
+    }
+
+    companion object{
+        const val USER_ID = 1
     }
 }

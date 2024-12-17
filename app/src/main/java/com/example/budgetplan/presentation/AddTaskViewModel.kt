@@ -19,7 +19,7 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
     fun addTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
             repo.addTask(task)
-            val user = repo.getUser(1)
+            val user = repo.getUser(USER_ID)
             user!!.lastTask = task
             repo.updateUser(user!!)
         }
@@ -40,5 +40,9 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             "SALARY" -> TaskType.SALARY
             else -> throw IllegalArgumentException("Unknown task type: $type")
         }
+    }
+
+    companion object{
+        const val USER_ID = 1
     }
 }
