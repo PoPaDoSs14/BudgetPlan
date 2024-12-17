@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.CalendarContract.Colors
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityMainBinding
 import com.example.budgetplan.domain.User
@@ -19,22 +20,34 @@ class RegistrationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = RegistrationViewModel(application)
+
+        viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         viewModel.firstLogin(this)
 
-
         binding.registerButton.setOnClickListener {
-            val name = binding.username.text.toString()
-            if (name != ""){
-                val user = User(0, name, 0, 0, 0, null)
-                viewModel.addUser(user)
-                val intent = Intent(this, StatisticsActivity::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(baseContext, "введите имя", Toast.LENGTH_SHORT).show()
-            }
-
+            registerUser()
         }
+    }
 
+    private fun registerUser() {
+        val name = binding.username.text.toString().trim()
+
+        if (name.isNotEmpty()) {
+            val user = User(0, name, 0, 0, 0, null)
+            try {
+                viewModel.addUser(user)
+                navigateToStatistics()
+            } catch (e: Exception) {
+                Toast.makeText(baseContext, "Ошибка при добавлении пользователя: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(baseContext, "Введите имя", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navigateToStatistics() {
+        val intent = Intent(this, StatisticsActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
