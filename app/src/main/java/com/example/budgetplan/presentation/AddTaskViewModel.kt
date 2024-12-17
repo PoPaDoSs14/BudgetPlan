@@ -21,6 +21,7 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             repo.addTask(task)
             val user = repo.getUser(USER_ID)
             user!!.lastTask = task
+            user.money += task.value
             repo.updateUser(user!!)
         }
     }
