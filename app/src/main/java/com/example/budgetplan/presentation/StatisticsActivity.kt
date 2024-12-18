@@ -27,7 +27,7 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStatisticsBinding.inflate(layoutInflater)
-        viewModel = StatisticsViewModel(application)
+        viewModel = StatisticsViewModel(application, this)
         viewModel.getUser()
         setContentView(binding.root)
 

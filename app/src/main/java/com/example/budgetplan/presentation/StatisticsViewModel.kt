@@ -3,6 +3,7 @@ package com.example.budgetplan.presentation
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class StatisticsViewModel(application: Application): AndroidViewModel(application) {
+class StatisticsViewModel(application: Application, val lifecycleOwner: LifecycleOwner): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
@@ -37,13 +38,13 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     }
 
     fun getIncome() {
-        _user.observeForever { user ->
+        _user.observe(lifecycleOwner) { user ->
             _income.postValue(user?.monthProfit?.toFloat() ?: 0f)
         }
     }
 
     fun getExpenses() {
-        _user.observeForever { user ->
+        _user.observe(lifecycleOwner) { user ->
             _expenses.postValue(user?.monthLosses?.toFloat() ?: 0f)
         }
     }
