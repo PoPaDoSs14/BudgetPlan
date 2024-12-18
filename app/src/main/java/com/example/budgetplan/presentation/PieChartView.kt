@@ -14,8 +14,8 @@ class PieChartView(context: Context, attrs: AttributeSet) : View(context, attrs)
     private val rect = RectF()
 
 
-    var expenses = 70f
-    var income = 30f
+    var expenses = DEFAULT_EXPENSES
+    var income = DEFAULT_INCOME
 
     init {
         paint.isAntiAlias = true
@@ -45,5 +45,10 @@ class PieChartView(context: Context, attrs: AttributeSet) : View(context, attrs)
         val sweepAngleIncome = (income / (expenses + income)) * 360
         paint.color = Color.GREEN
         canvas.drawArc(rect, startAngle, sweepAngleIncome, true, paint)
+    }
+
+    companion object {
+        const val DEFAULT_EXPENSES = 70f
+        const val DEFAULT_INCOME = 30f
     }
 }
