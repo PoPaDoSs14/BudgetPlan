@@ -22,13 +22,15 @@ import com.example.budgetplan.databinding.ActivityStatisticsBinding
 class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStatisticsBinding
-    private val viewModel: StatisticsViewModel by viewModels()
+    private lateinit var viewModel: StatisticsViewModel
     private lateinit var adapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStatisticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = StatisticsViewModel(application, this)
 
         setupObservers()
         setupRecyclerView()
