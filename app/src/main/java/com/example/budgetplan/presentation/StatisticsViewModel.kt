@@ -33,12 +33,12 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         getTasks()
         getUser()
         observeUser()
-        getIncome(lifecycleOwner)
-        getExpenses(lifecycleOwner)
+        loadIncome()
+        loadExpenses()
     }
 
-    fun getIncome(lifecycleOwner: LifecycleOwner) {
-        _user.observe(lifecycleOwner) { user ->
+    fun loadIncome() {
+        _user.observeForever { user ->
             user?.monthProfit?.toFloat()?.let {
                 _income.postValue(it)
             } ?: run {
@@ -47,8 +47,8 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         }
     }
 
-    fun getExpenses(lifecycleOwner: LifecycleOwner) {
-        _user.observe(lifecycleOwner) { user ->
+    fun loadExpenses() {
+        _user.observeForever { user ->
             user?.monthLosses?.toFloat()?.let {
                 _expenses.postValue(it)
             } ?: run {
