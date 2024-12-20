@@ -41,8 +41,6 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         _user.observeForever { user ->
             user?.monthProfit?.toFloat()?.let {
                 _income.postValue(it)
-            } ?: run {
-                _income.postValue(0f)
             }
         }
     }
@@ -51,8 +49,6 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         _user.observeForever { user ->
             user?.monthLosses?.toFloat()?.let {
                 _expenses.postValue(it)
-            } ?: run {
-                _expenses.postValue(0f)
             }
         }
     }
