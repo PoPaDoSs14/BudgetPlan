@@ -38,21 +38,14 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
     }
 
     fun loadIncome() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val user = repo.getUser(USER_ID)
-            user?.monthProfit?.toFloat()?.let {
-                _income.postValue(it)
-            }
+        _user.value?.monthProfit?.toFloat()?.let {
+            _income.value = it
         }
-
     }
 
     fun loadExpenses() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val user = repo.getUser(USER_ID)
-            user?.monthLosses?.toFloat()?.let {
-                _expenses.postValue(it)
-            }
+        _user.value?.monthLosses?.toFloat()?.let {
+            _expenses.value = it
         }
     }
 
@@ -117,6 +110,8 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         user.observeForever { user ->
             val money = user?.money?.toString() ?: "0"
             _remaingMoney.postValue("Осталось денег: $money ₽")
+            loadIncome()
+            loadExpenses()
         }
     }
 

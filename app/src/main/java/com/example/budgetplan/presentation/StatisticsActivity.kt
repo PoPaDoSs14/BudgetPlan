@@ -41,7 +41,13 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.income.observe(this){binding.pieChart.income = it}
+        viewModel.user.observe(this) { user ->
+            user?.let {
+                viewModel.loadIncome()
+                viewModel.loadExpenses()
+            }
+        }
+        viewModel.income.observe(this) { binding.pieChart.income = it }
         viewModel.expenses.observe(this) { binding.pieChart.expenses = it }
         viewModel.tasks.observe(this) { adapter.submitList(it) }
         viewModel.remaingMoney.observe(this) { binding.remainingMoney.text = it }
