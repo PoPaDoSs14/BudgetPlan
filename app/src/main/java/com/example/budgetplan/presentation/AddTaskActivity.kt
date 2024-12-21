@@ -60,7 +60,7 @@ class AddTaskActivity : AppCompatActivity() {
     private fun navigateToStatistics() {
         val intent = Intent(this, StatisticsActivity::class.java)
         startActivity(intent)
-        finish() // Закрываем текущую активность
+        finish()
     }
 
     private fun showToast(message: String) {

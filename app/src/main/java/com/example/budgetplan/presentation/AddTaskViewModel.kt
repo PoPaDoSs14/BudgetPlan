@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.budgetplan.data.RepositoryImpl
 import com.example.budgetplan.domain.Task
 import com.example.budgetplan.domain.TaskType
+import com.example.budgetplan.domain.User
+import com.example.budgetplan.presentation.StatisticsViewModel.Companion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -18,16 +20,16 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
 
     fun addTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
-            repo.addTask(task)
             val user = repo.getUser(USER_ID)
             user!!.lastTask = task
             user.money += task.value
             if (task.isProfit){
-                user.monthProfit + task.value
+                user.monthProfit += task.value
             } else{
-                user.monthLosses + task.value
+                user.monthLosses += task.value
             }
-            repo.updateUser(user!!)
+            updateUser(user)
+            repo.addTask(task)
         }
     }
 
@@ -45,6 +47,21 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             "MEDICINES" -> TaskType.MEDICINES
             "SALARY" -> TaskType.SALARY
             else -> throw IllegalArgumentException("Unknown task type: $type")
+        }
+    }
+
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val userId = repo.getUser(StatisticsViewModel.USER_ID)!!.id
+            val updateUser = User(
+                userId,
+                name = user.name,
+                money = user.money,
+                monthProfit = user.monthProfit,
+                monthLosses = user.monthLosses,
+                lastTask = user.lastTask
+            )
+            repo.updateUser(updateUser)
         }
     }
 
