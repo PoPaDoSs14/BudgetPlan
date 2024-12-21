@@ -33,8 +33,6 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
         getTasks()
         getUser()
         observeUser()
-        loadIncome()
-        loadExpenses()
     }
 
     fun loadIncome() {
