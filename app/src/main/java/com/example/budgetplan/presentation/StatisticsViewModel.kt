@@ -38,15 +38,18 @@ class StatisticsViewModel(application: Application, val lifecycleOwner: Lifecycl
     }
 
     fun loadIncome() {
-        _user.observeForever { user ->
+        viewModelScope.launch(Dispatchers.IO) {
+            val user = repo.getUser(USER_ID)
             user?.monthProfit?.toFloat()?.let {
                 _income.postValue(it)
             }
         }
+
     }
 
     fun loadExpenses() {
-        _user.observeForever { user ->
+        viewModelScope.launch(Dispatchers.IO) {
+            val user = repo.getUser(USER_ID)
             user?.monthLosses?.toFloat()?.let {
                 _expenses.postValue(it)
             }
