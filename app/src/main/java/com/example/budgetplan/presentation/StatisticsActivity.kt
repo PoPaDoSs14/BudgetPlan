@@ -30,7 +30,7 @@ class StatisticsActivity : AppCompatActivity() {
         binding = ActivityStatisticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = StatisticsViewModel(application, this)
+        viewModel = StatisticsViewModel(application)
 
         setupObservers()
         setupRecyclerView()

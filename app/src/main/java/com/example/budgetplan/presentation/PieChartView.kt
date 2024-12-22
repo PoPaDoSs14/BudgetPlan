@@ -6,20 +6,33 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 
-class PieChartView(context: Context, attrs: AttributeSet) : View(context, attrs) {
-
-    private val paint = Paint()
+class PieChartView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
+    private val paint = Paint().apply {
+        isAntiAlias = true
+    }
     private val rect = RectF()
 
-
     var expenses = DEFAULT_EXPENSES
-    var income = DEFAULT_INCOME
+        set(value) {
+            field = value
+            invalidate()
+        }
 
-    init {
-        paint.isAntiAlias = true
-    }
+    var income = DEFAULT_INCOME
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var expenseColor = Color.RED
+    var incomeColor = Color.GREEN
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -30,21 +43,18 @@ class PieChartView(context: Context, attrs: AttributeSet) : View(context, attrs)
 
         rect.set(width / 2 - radius, height / 2 - radius, width / 2 + radius, height / 2 + radius)
 
+        val total = expenses + income
+        Log.d("PieChart", "Expenses: $expenses, Income: $income, Total: $total")
 
-        var startAngle = 0f
+        if (total > 0) {
+            drawSlice(canvas, expenseColor, 0f, (expenses / total) * 360)
+            drawSlice(canvas, incomeColor, (expenses / total) * 360, (income / total) * 360)
+        }
+    }
 
-
-        val sweepAngleExpenses = (expenses / (expenses + income)) * 360
-        paint.color = Color.RED
-        canvas.drawArc(rect, startAngle, sweepAngleExpenses, true, paint)
-
-
-        startAngle += sweepAngleExpenses
-
-
-        val sweepAngleIncome = (income / (expenses + income)) * 360
-        paint.color = Color.GREEN
-        canvas.drawArc(rect, startAngle, sweepAngleIncome, true, paint)
+    private fun drawSlice(canvas: Canvas, color: Int, startAngle: Float, sweepAngle: Float) {
+        paint.color = color
+        canvas.drawArc(rect, startAngle, sweepAngle, true, paint)
     }
 
     companion object {
