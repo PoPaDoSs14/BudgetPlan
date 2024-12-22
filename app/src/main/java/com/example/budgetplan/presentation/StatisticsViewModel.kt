@@ -43,7 +43,7 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
 
     fun loadExpenses() {
         _user.value?.monthLosses?.toFloat()?.let {
-            _expenses.value = it
+            _expenses.value = Math.abs(it)
         }
     }
 
