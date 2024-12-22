@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class StatisticsViewModel(application: Application, val lifecycleOwner: LifecycleOwner): AndroidViewModel(application) {
+class StatisticsViewModel(application: Application): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
     private val _user = MutableLiveData<User>()
