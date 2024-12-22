@@ -46,6 +46,7 @@ class AddTaskViewModel(application: Application): AndroidViewModel(application) 
             "TAXES" -> TaskType.TAXES
             "MEDICINES" -> TaskType.MEDICINES
             "SALARY" -> TaskType.SALARY
+            "OTHER" -> TaskType.OTHER
             else -> throw IllegalArgumentException("Unknown task type: $type")
         }
     }
