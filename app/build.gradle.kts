@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("androidx.room")
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -51,6 +52,11 @@ android {
 dependencies {
 
     val room_version = "2.6.1"
+
+    dependencies {
+        implementation ("com.google.dagger:dagger:2.35.1")
+        kapt ("com.google.dagger:dagger-compiler:2.35.1")
+    }
 
 
     implementation("androidx.room:room-runtime:$room_version")
