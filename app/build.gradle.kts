@@ -55,10 +55,10 @@ dependencies {
 
 
     val dagger_version = "2.44"
+    ksp ("com.google.dagger:dagger-compiler:2.44")
+    implementation ("com.google.dagger:hilt-android:2.44")
     implementation ("com.google.dagger:dagger:$dagger_version")
-    kapt ("com.google.dagger:dagger-compiler:$dagger_version")
     implementation ("com.google.dagger:dagger-android:$dagger_version")
-    kapt ("com.google.dagger:dagger-android-processor:$dagger_version")
     
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:2.5.0")
