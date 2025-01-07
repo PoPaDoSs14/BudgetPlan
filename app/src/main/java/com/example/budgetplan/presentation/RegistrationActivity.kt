@@ -10,14 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.budgetplan.R
 import com.example.budgetplan.databinding.ActivityMainBinding
+import com.example.budgetplan.di.ApplicationComponent
 import com.example.budgetplan.domain.User
+import dagger.internal.DaggerGenerated
+import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: RegistrationViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: RegistrationViewModel
+
+    private val component = DaggerApplicationComponent().create
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

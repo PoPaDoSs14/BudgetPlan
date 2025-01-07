@@ -10,8 +10,9 @@ import com.example.budgetplan.domain.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RegistrationViewModel(application: Application): AndroidViewModel(application) {
+class RegistrationViewModel @Inject constructor(application: Application): AndroidViewModel(application) {
 
     private val repo = RepositoryImpl(application)
 
